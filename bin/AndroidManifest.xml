@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lovewuchin.xposed.xmultiwindow"
+    android:versionCode="1"
+    android:versionName="1.5.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" 
+        android:name=".helpers.MyApplication">
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" />
+        <meta-data
+            android:name="xposedminversion"
+            android:value="2.1*" />
+        <meta-data
+            android:name="xposeddescription"
+            android:value="@string/xposed_description" />
+        <activity android:name="MainPreference">
+                        <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="SideBarControlPanel"></activity>
+        <service android:name=".widget.SideBarControl"></service>
+        <activity android:name=".widget.sidebar.SideBarLauncher"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:excludeFromRecents="true">            
+        </activity>
+        <service android:name=".widget.sidebar.SideBar"></service>
+    </application>
+</manifest>

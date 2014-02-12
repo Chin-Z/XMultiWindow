@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">XMultiWindow</string>
+    <string name="action_instruction">说明</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="window_icon">Window icon</string>
+    <string name="hide">Hide</string>
+    <string name="close">Close</string>
+    <string name="corner">Corner</string>
+    <string name="maximize">Maximize</string>
+    <string name="pref_lunch_test">lunch_test</string>
+    <string name="pref_lunch_floating">lunch_float</string>
+    <string name="floating_string">开启悬浮窗</string>
+    <string name="floating_summary">点击打开悬浮窗口,并启动APP选择窗口.</string>
+    <string name="float_folder_name">应用切换窗口</string>
+    <string name="float_folder_addapp">添加应用</string>
+    <string name="float_folder_clear">清除所有应用</string>
+    <string name="float_folder_msg_clear">点击关闭所有窗口.</string>
+    <string name="pop_add_upview">添加到上方视图</string>
+    <string name="pop_add_downview">添加到下方视图</string>
+    <string name="about">关于XMultiWindow</string>
+    <string name="pref_about">about</string>
+    <string name="about_developer">开发者</string>
+    <string name="about_thank">感谢列表</string>
+    <string name="about_summaty_developer">Chin</string>
+    <string name="about_summary_thank">zst123</string>
+    <string name="action_message">首先,点击选项开启悬浮圆圈.\n\n然后，点击圆圈开启应用切换窗口。\n\n最后，添加自己喜欢的应用并设置上下视图。</string>
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string> 
+    <string name="pop_add_leftview">添加到左方视图</string>
+    <string name="pop_add_rightview">添加到右方视图</string>
+    <string name="xposed_description">XMultiWindow--对任意ROM支持Omni拆分视图</string>
+</resources>

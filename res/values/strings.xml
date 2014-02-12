@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">XMultiWindow</string>
+    <string name="action_instruction">Instructions</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="window_icon">Window icon</string>
+    <string name="hide">Hide</string>
+    <string name="close">Close</string>
+    <string name="corner">Corner</string>
+    <string name="maximize">Maximize</string>
+    <string name="pref_lunch_test">lunch_test</string>
+    <string name="pref_lunch_floating">lunch_float</string>
+    <string name="floating_string">Open SideBar</string>
+    <string name="floating_summary">Click this to open SideBar and lunch multi window app chooser </string>
+    <string name="float_folder_name">Multi App Chooser</string>
+    <string name="float_folder_addapp">Add Application</string>
+    <string name="float_folder_clear">Clear All App</string>
+    <string name="float_folder_msg_clear">Click to close all windows.</string>
+    <string name="pop_add_upview">Add to up WorkSpace</string>
+    <string name="pop_add_downview">Add to down WorkSpace</string>
+    <string name="about">About</string>
+    <string name="pref_about">about</string>
+    <string name="about_developer">Developer</string>
+    <string name="about_thank">Thanks</string>
+    <string name="about_summaty_developer">Chin</string>
+    <string name="about_summary_thank">zst123</string>
+    <string name="action_message">FIRST,click the preference item to open the Float Circle.\n\nTHEN,you can click the float circle to open the Multi App Chooser floating folder to swith your app.\n\nAT LAST,you just set the float window position and enjoy splite view!</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="pop_add_leftview">Add to left WorkSpace</string>
+    <string name="pop_add_rightview">Add to right WorkSpace</string>
+    <string name="xposed_description">XMultiWindow--Like Omni Splite View to any ROM</string>
+    <string name="nofiy_clear">Click to close all windows.</string>
+    <string name="pref_side_bar">lunch_sidebar</string>
+    <string name="side_bar_text">SideBar</string>
+    <string name="side_bar_summary">Click to open the SideBar and open MultiWindow</string>
+    
+</resources>
