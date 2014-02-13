@@ -3,8 +3,14 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen android:key="@string/pref_lunch_floating" android:title="@string/floating_string" android:summary="@string/floating_summary">
         
-    </PreferenceScreen><PreferenceScreen android:title="@string/pref_string_sidebar_settings">
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/pref_string_sidebar_settings">
         <PreferenceScreen android:key="@string/pref_key_sidebar_app" android:title="@string/pref_string_sidebar_app"></PreferenceScreen>
+        <com.lovewuchin.xposed.xmultiwindow.widget.preference.SeekBarPreference 
+        android:key="@string/pref_sidebar_width"
+		android:title="@string/sidebar_seekbar"
+		monitorBoxEnabled="true"
+		monitorBoxUnit="%" />
     </PreferenceScreen>
     <PreferenceScreen android:title="@string/about" android:key="@string/pref_about">
         <PreferenceScreen android:title="@string/about_developer" android:summary="@string/about_summaty_developer">

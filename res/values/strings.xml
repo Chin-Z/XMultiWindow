@@ -38,5 +38,7 @@
     <string name="pref_string_sidebar_settings">SideBar Settings</string>
     <string name="pref_key_sidebar_app">key_sidebar_app</string>
     <string name="pref_string_sidebar_app">Sidebar App Settings</string>
+    <string name="sidebar_seekbar">SideBar Width</string>
+    <string name="pref_sidebar_width">sidebar_width</string>
     
 </resources>

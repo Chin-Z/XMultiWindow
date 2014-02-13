@@ -10,6 +10,8 @@ public class Common {
 	public static final int FLAG_ACTIVITY_DOWNVIEW = 0x002;
 	public static final String LOG_TAG = "XMultiWindow(SDK: " + Build.VERSION.SDK_INT + ") - ";
 	public static final String PREFERENCE_APP="sidebar_app";
+	public static final String PREFERENCE_MAIN="main_preference";
+	public static final String PREFERENCE_WIDTH="sidebar_width";
 	public static final String REFRESH_APP_LAYOUT = THIS_PACKAGE_NAME + ".REFRESH_APP_LAYOUT";
 	public static final int LAYOUT_RECEIVER_TAG = android.R.id.background;
 //Broadcast
@@ -21,6 +23,7 @@ public class Common {
 	public static final String KEY_LUNCH_FLOAT="lunch_float";
 	public static final String KEY_LUNCH_SIDEBAR="lunch_sidebar";
 	public static final String KEY_SIDEBAR_APP="key_sidebar_app";
+	public static final String KEY_SIDEBAR_WIDTH="sidebar_width";
 //String Values
 	public static final int FLOATING_FOLDER_NAME = R.string.float_folder_name;
 	public static final int FLOATING_FOLDER_ADD = R.string.float_folder_addapp;

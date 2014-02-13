@@ -144,7 +144,13 @@ public class SideBar extends StandOutWindow{
 		WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
 		display.getMetrics(metrics);
-		return new StandOutLayoutParams(id, metrics.widthPixels/4, metrics.heightPixels, 0, 0);
+		SharedPreferences mPrefs=getSharedPreferences(Common.PREFERENCE_MAIN, MODE_WORLD_READABLE);
+		int width=mPrefs.getInt(Common.PREFERENCE_WIDTH, 150);
+		if(metrics.heightPixels>metrics.widthPixels){
+		return new StandOutLayoutParams(id, width, metrics.heightPixels, 0, 0);
+		}else{
+			return new StandOutLayoutParams(id, width, metrics.widthPixels, 0, 0);
+		}
 	}
 	public String getPersistentNotificationMessage(int id) {
 		return getString(Common.NOFIY_CLEAR);
