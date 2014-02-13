@@ -14,7 +14,6 @@ static XSharedPreferences mAlloew;
 	@Override
 	public void initZygote(StartupParam startupParam) throws Throwable {
 		// TODO Auto-generated method stub
-		mPrefs = new XSharedPreferences(Common.THIS_PACKAGE_NAME, Common.PREFERENCE_APPSHOW);
 	}
 
 	@Override

@@ -9,10 +9,18 @@ public class Common {
 	public static final int FLAG_ACTIVITY_UPVIEW = 0x001;
 	public static final int FLAG_ACTIVITY_DOWNVIEW = 0x002;
 	public static final String LOG_TAG = "XMultiWindow(SDK: " + Build.VERSION.SDK_INT + ") - ";
-	public static final String PREFERENCE_APPSHOW="window_show";
+	public static final String PREFERENCE_APP="sidebar_app";
+	public static final String REFRESH_APP_LAYOUT = THIS_PACKAGE_NAME + ".REFRESH_APP_LAYOUT";
+	public static final int LAYOUT_RECEIVER_TAG = android.R.id.background;
+//Broadcast
+	public static final String CHANGE_APP_FOCUS = THIS_PACKAGE_NAME + ".CHANGE_APP_FOCUS";
+	public static final String INTENT_APP_TOKEN = "token";
+	public static final String INTENT_APP_ID = "id";
+	public static final String REMOVE_NOTIFICATION_RESTORE = THIS_PACKAGE_NAME + ".REMOVE_NOTIFICATION_RESTORE.";
 //Preference Keys
 	public static final String KEY_LUNCH_FLOAT="lunch_float";
 	public static final String KEY_LUNCH_SIDEBAR="lunch_sidebar";
+	public static final String KEY_SIDEBAR_APP="key_sidebar_app";
 //String Values
 	public static final int FLOATING_FOLDER_NAME = R.string.float_folder_name;
 	public static final int FLOATING_FOLDER_ADD = R.string.float_folder_addapp;

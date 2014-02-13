@@ -4,17 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 import net.londatiga.android.ActionItem;
 import net.londatiga.android.QuickAction;
 
 import com.lovewuchin.xposed.xmultiwindow.Common;
 import com.lovewuchin.xposed.xmultiwindow.R;
+import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.adapter.AppAdapter.AppItem;
 import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.adapter.ApplicationAdapter;
+import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.adapter.ApplicationAdapter.PackageItem;
+import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.adapter.PackageNameAdapter;
 
 import android.R.color;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -58,10 +63,9 @@ public class SideBar extends StandOutWindow{
 		// TODO Auto-generated method stub
 		LayoutInflater inflater=LayoutInflater.from(this);
 		final View view=inflater.inflate(R.layout.sidebar_app_layout, frame,true);
-		final ListView mAppList=(ListView)view.findViewById(R.id.app_list);
-		final List<ActivityInfo> apps = new ArrayList<ActivityInfo>();
-		mAppList.setClickable(true);
-		final ApplicationAdapter adapter=new ApplicationAdapter(this, R.layout.app_row, apps);
+		final ListView mAppList=(ListView)view.findViewById(R.id.app_list);	
+		mAppList.setClickable(true);	
+		final ApplicationAdapter adapter=new ApplicationAdapter(this,getSetStrings());		
 		mAppList.setAdapter(adapter);
 		mAppList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -69,7 +73,7 @@ public class SideBar extends StandOutWindow{
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long arg3) {
 				// TODO Auto-generated method stub
-				final ActivityInfo app = (ActivityInfo) parent
+				final PackageItem app = (PackageItem) parent
 						.getItemAtPosition(position);
 				Context mContext = getApplicationContext();
 				DisplayMetrics metrics=new DisplayMetrics();
@@ -131,25 +135,6 @@ public class SideBar extends StandOutWindow{
 			}
 			
         });
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				final Intent mainIntent = new Intent(Intent.ACTION_MAIN,
-						null);
-				mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-				final List<ResolveInfo> resolveApps = getPackageManager()
-						.queryIntentActivities(mainIntent, 0);
-				for (ResolveInfo resolveApp : resolveApps) {
-					apps.add(resolveApp.activityInfo);
-				}
-				view.post(new Runnable() {
-					@Override
-					public void run() {
-						adapter.notifyDataSetChanged();
-					}
-				});
-			}
-		}).start();
 	}
 
 	@Override
@@ -166,6 +151,10 @@ public class SideBar extends StandOutWindow{
 	}
 	public Intent getPersistentNotificationIntent(int id) {
 		return StandOutWindow.getCloseAllIntent(this, SideBar.class);
+	}
+	private Set<String> getSetStrings() {
+		SharedPreferences mPrefs = getSharedPreferences(Common.PREFERENCE_APP, MODE_WORLD_READABLE);
+		return mPrefs.getAll().keySet();
 	}
 
 }

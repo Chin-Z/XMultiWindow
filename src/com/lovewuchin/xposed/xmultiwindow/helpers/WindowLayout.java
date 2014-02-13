@@ -23,6 +23,7 @@ public class WindowLayout {
 		WindowManager.LayoutParams params = window.getAttributes();
 		window.addFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
 		window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+		window.addFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
 		window.setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 	    window.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);

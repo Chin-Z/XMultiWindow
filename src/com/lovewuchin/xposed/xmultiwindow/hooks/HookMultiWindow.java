@@ -7,15 +7,26 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
+import android.os.Binder;
 import android.os.Build;
+import android.os.IBinder;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -41,9 +52,12 @@ public class HookMultiWindow {
 	static XSharedPreferences mPrefs;
 	static boolean isMultiWindow=false;
 	static boolean multiWindow;
+	static Activity activity;
 	static View overlayView;
 	static int mPreviousOrientation;
 	static final String INTENT_APP_PKG = "pkg";
+	static ActivityManager iActivityManager;
+	static Context mSystemContext;
 
 	public static void handleLoadPackage(LoadPackageParam lpparam,
 			XSharedPreferences mPref) {
@@ -81,36 +95,18 @@ public class HookMultiWindow {
 			XposedBridge.log(Common.LOG_TAG + "(Activity)");
 			XposedBridge.log(e);
 		}
-		try {
-			fixExceptionWhenResuming(lpparam);
-		} catch (Throwable e) {
-			// TODO: handle exception
-			XposedBridge.log(Common.LOG_TAG + "(fixExceptionWhenResuming)");
-			XposedBridge.log(e);
-		}
-	}
-/*********************************************************************************/
-	static boolean mExceptionHook = false;
-	private static void fixExceptionWhenResuming(LoadPackageParam lpparam) throws Throwable {
-		XposedBridge.hookAllMethods(findClass("android.app.ActivityThread", lpparam.classLoader), "performResumeActivity", 
-				new XC_MethodHook() {
-			protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-				mExceptionHook = true;
-			}
-			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-				mExceptionHook = false;
-			}
-		});
-		XposedBridge.hookAllMethods(android.app.Instrumentation.class, "onException",
-				new XC_MethodReplacement() {
-			protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-				return mExceptionHook;
-			}
-		});
 	}
 /*********************************************************************************/
 private static void hookActivity(LoadPackageParam lpparam) {
 		// TODO Auto-generated method stub
+	    XposedBridge.hookAllMethods(Activity.class, "onCreate", new XC_MethodHook() {
+	    	@Override
+	    	protected void beforeHookedMethod(MethodHookParam param)
+	    			throws Throwable {
+	    		// TODO Auto-generated method stub
+	    		activity=(Activity)param.thisObject;
+	    	}
+		});
 		XposedBridge.hookAllMethods(Activity.class, "onResume", new XC_MethodHook() {
           @Override
         protected void beforeHookedMethod(MethodHookParam param)
@@ -123,7 +119,6 @@ private static void hookActivity(LoadPackageParam lpparam) {
         	isMultiWindow=((intent.getFlags()&Common.FLAG_ACTIVITY_UPVIEW)==Common.FLAG_ACTIVITY_UPVIEW)||((intent.getFlags()&Common.FLAG_ACTIVITY_DOWNVIEW)==Common.FLAG_ACTIVITY_DOWNVIEW);
         	if(isMultiWindow){
             		WindowLayout.applyLayout(thiz.getWindow());
-        	
         	if(metrics.heightPixels>metrics.widthPixels){
         	if((intent.getFlags()&Common.FLAG_ACTIVITY_DOWNVIEW)==Common.FLAG_ACTIVITY_DOWNVIEW){
             	updateView(thiz.getWindow(),0,metrics.widthPixels);
@@ -139,34 +134,52 @@ private static void hookActivity(LoadPackageParam lpparam) {
         }}
           }
         });
+		XposedBridge.hookAllMethods(Activity.class, "onResume", new XC_MethodHook() {
+			@Override
+			protected void afterHookedMethod(MethodHookParam param)
+					throws Throwable {
+				// TODO Auto-generated method stub
+				Activity activity = (Activity) param.thisObject;
+				if (!isMultiWindow) return;
+				if (overlayView != null) {
+					FrameLayout decorView = (FrameLayout) activity.getWindow()
+							.peekDecorView().getRootView();
+					decorView.bringChildToFront(overlayView);
+				}
+			}
+		});
 		XposedBridge.hookAllMethods(Activity.class, "onStart", new XC_MethodHook() {
 			@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 			@Override
 			protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 				if (!isMultiWindow) return;
-				Activity activity = (Activity) param.thisObject;
+				activity = (Activity) param.thisObject;
 				Window window = (Window) activity.getWindow();
-
-				// register the receiver for syncing window position
-				registerLayoutBroadcastReceiver(window);
-				// set layout position from previous activity if available
 				setLayoutPositioning(window);
-
-				Context context = window.getContext();
-
 				FrameLayout decorView = (FrameLayout) window.peekDecorView().getRootView();
-				if (decorView == null) return;
-				// make sure the titlebar/drag-to-move-bar is not behind the statusbar
-				decorView.setFitsSystemWindows(true);
 				try {
 					// disable resizing animation to speed up scaling (doesn't work on all roms)
 					XposedHelpers.callMethod(decorView, "hackTurnOffWindowResizeAnim", true);
 				} catch (Throwable e) {
 				}
-
 				RelativeLayout.LayoutParams paramz = new RelativeLayout.LayoutParams(
 						ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
 				paramz.setMargins(0, 0, 0, 0);
+			}
+		});
+		XposedBridge.hookAllMethods(Activity.class, "dispatchTouchEvent", new XC_MethodHook() {
+			@Override
+			protected void beforeHookedMethod(MethodHookParam param)
+					throws Throwable {
+				// TODO Auto-generated method stub
+				Activity act=(Activity)param.thisObject;
+				MotionEvent event=(MotionEvent)param.args[0];
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:{
+					changeFocusApp(act);
+					break;
+				}
+				}
 			}
 		});
 	}
@@ -176,34 +189,6 @@ static int layout_y;
 static int layout_width;
 static int layout_height;
 static float layout_alpha;
-private static void registerLayoutBroadcastReceiver(final Window window) {
-	BroadcastReceiver br = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
-				Configuration config = window.getContext().getResources().getConfiguration();
-				if (config.orientation != mPreviousOrientation) {
-					WindowManager.LayoutParams paramz = window.getAttributes();
-					final int old_x = paramz.x;
-					final int old_y = paramz.y;
-					final int old_height = paramz.height;
-					final int old_width = paramz.width;
-					paramz.x = old_y;
-					paramz.y = old_x;
-					paramz.width = old_height;
-					paramz.height = old_width;
-					window.setAttributes(paramz);
-					mPreviousOrientation = config.orientation;
-				}
-				return;
-			}
-			if (intent.getStringExtra(INTENT_APP_PKG).equals(
-					window.getContext().getApplicationInfo().packageName)) {
-				setLayoutPositioning(window);
-			}
-		}
-	};
-}
 private static void setLayoutPositioning(Window window) {
 
 	WindowManager.LayoutParams params = window.getAttributes();
@@ -220,6 +205,12 @@ private static void updateView(Window mWindow, float x, float y) {
 	params.x = (int) x;
 	params.y = (int) y;
 	mWindow.setAttributes(params);
+}
+private static void changeFocusApp(Activity a) throws Throwable {
+	Intent i = new Intent(Common.CHANGE_APP_FOCUS);
+	i.putExtra(Common.INTENT_APP_ID, a.getTaskId());
+	a.sendBroadcast(i);
+	XposedBridge.log("xxxxxx");
 }
 
 /***********************************************************************************/

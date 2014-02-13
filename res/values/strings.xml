@@ -35,5 +35,8 @@
     <string name="pref_side_bar">lunch_sidebar</string>
     <string name="side_bar_text">SideBar</string>
     <string name="side_bar_summary">Click to open the SideBar and open MultiWindow</string>
+    <string name="pref_string_sidebar_settings">SideBar Settings</string>
+    <string name="pref_key_sidebar_app">key_sidebar_app</string>
+    <string name="pref_string_sidebar_app">Sidebar App Settings</string>
     
 </resources>

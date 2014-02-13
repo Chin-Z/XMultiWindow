@@ -85,11 +85,11 @@ public final class R {
         public static final int content=0x7f0b000f;
         public static final int corner=0x7f0b0017;
         public static final int description=0x7f0b0009;
+        public static final int dialog_sidebar_id=0x7f0b0008;
         public static final int hide=0x7f0b0013;
         public static final int icon=0x7f0b0004;
         public static final int item_add=0x7f0b001a;
         public static final int iv_icon=0x7f0b0000;
-        public static final int listView1=0x7f0b0008;
         public static final int maximize=0x7f0b0014;
         public static final int progressBar1=0x7f0b0007;
         public static final int removeButton=0x7f0b0019;
@@ -107,16 +107,18 @@ public final class R {
         public static final int action_item_vertical=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int app_row=0x7f030003;
-        public static final int dialog_blacklist=0x7f030004;
+        public static final int dialog_sidebar_app=0x7f030004;
         public static final int drop_down_list_item=0x7f030005;
         public static final int float_layout=0x7f030006;
         public static final int horiz_separator=0x7f030007;
         public static final int popup_horizontal=0x7f030008;
         public static final int popup_vertical=0x7f030009;
         public static final int sidebar_app_layout=0x7f03000a;
-        public static final int system_window_decorators=0x7f03000b;
-        public static final int view_app_list=0x7f03000c;
-        public static final int view_package_list=0x7f03000d;
+        public static final int sidebar_app_settings=0x7f03000b;
+        public static final int sidebar_package_list=0x7f03000c;
+        public static final int system_window_decorators=0x7f03000d;
+        public static final int view_app_list=0x7f03000e;
+        public static final int view_package_list=0x7f03000f;
     }
     public static final class menu {
         public static final int app_list=0x7f0a0000;
@@ -150,9 +152,12 @@ public final class R {
         public static final int pop_add_rightview=0x7f08001c;
         public static final int pop_add_upview=0x7f080010;
         public static final int pref_about=0x7f080013;
+        public static final int pref_key_sidebar_app=0x7f080023;
         public static final int pref_lunch_floating=0x7f080009;
         public static final int pref_lunch_test=0x7f080008;
         public static final int pref_side_bar=0x7f08001f;
+        public static final int pref_string_sidebar_app=0x7f080024;
+        public static final int pref_string_sidebar_settings=0x7f080022;
         public static final int side_bar_summary=0x7f080021;
         public static final int side_bar_text=0x7f080020;
         public static final int window_icon=0x7f080003;

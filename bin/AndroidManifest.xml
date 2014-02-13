@@ -37,5 +37,6 @@
             android:excludeFromRecents="true">            
         </activity>
         <service android:name=".widget.sidebar.SideBar"></service>
+        <activity android:name=".widget.sidebar.SideBarApp"></activity>
     </application>
 </manifest>

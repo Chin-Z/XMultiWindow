@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 public class MyApplication extends Application{
-public Context appContext;
+public static Context appContext;
      @Override
     	public void onCreate() {
     		// TODO Auto-generated method stub

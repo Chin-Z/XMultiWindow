@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen android:key="@string/pref_lunch_floating" android:title="@string/floating_string" android:summary="@string/floating_summary">
+        
+    </PreferenceScreen><PreferenceScreen android:title="@string/pref_string_sidebar_settings">
+        <PreferenceScreen android:key="@string/pref_key_sidebar_app" android:title="@string/pref_string_sidebar_app"></PreferenceScreen>
     </PreferenceScreen>
     <PreferenceScreen android:title="@string/about" android:key="@string/pref_about">
         <PreferenceScreen android:title="@string/about_developer" android:summary="@string/about_summaty_developer">

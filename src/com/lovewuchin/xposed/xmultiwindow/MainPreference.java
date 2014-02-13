@@ -1,5 +1,7 @@
 package com.lovewuchin.xposed.xmultiwindow;
 
+import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.SideBarApp;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,8 +24,7 @@ public class MainPreference extends PreferenceActivity implements OnPreferenceCl
     	super.onCreate(savedInstanceState);
     	addPreferencesFromResource(R.xml.pref_main);
     	findPreference(Common.KEY_LUNCH_FLOAT).setOnPreferenceClickListener(this);
-//    	mCheck=(CheckBoxPreference)findPreference(Common.KEY_LUNCH_SIDEBAR);
-//    	mCheck.setOnPreferenceClickListener(this);
+    	findPreference(Common.KEY_SIDEBAR_APP).setOnPreferenceClickListener(this);
     	getActionBar().setDisplayHomeAsUpEnabled(isChild());
     }
     @Override
@@ -52,6 +53,9 @@ public class MainPreference extends PreferenceActivity implements OnPreferenceCl
            if(key.equals(Common.KEY_LUNCH_FLOAT)){
     		  startActivity(new Intent(this,SideBarControlPanel.class));
     		  finish();
+    		  return true;
+    	  }else if(key.equals(Common.KEY_SIDEBAR_APP)){
+    		  startActivity(new Intent(this,SideBarApp.class));
     		  return true;
     	  }
     	return false;
