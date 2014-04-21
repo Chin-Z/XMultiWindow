@@ -1,5 +1,6 @@
 package com.lovewuchin.xposed.xmultiwindow;
 
+import com.lovewuchin.xposed.xmultiwindow.widget.SideBarControl;
 import com.lovewuchin.xposed.xmultiwindow.widget.preference.SeekBarPreference;
 import com.lovewuchin.xposed.xmultiwindow.widget.sidebar.SideBarApp;
 
@@ -16,6 +17,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 @SuppressLint("WorldReadableFiles")
 public class MainPreference extends PreferenceActivity implements OnPreferenceClickListener, OnPreferenceChangeListener{
@@ -56,8 +58,8 @@ public class MainPreference extends PreferenceActivity implements OnPreferenceCl
          Intent mIntent;
          switch(preference.getKey()) {
          case Common.KEY_LAUNCH_FLOAT:
-        	 mIntent = new Intent(this, SideBarControlPanel.class);
-        	 startActivity(mIntent);
+        	 Toast.makeText(this, "open sidebar",Toast.LENGTH_SHORT);
+         	 startService(new Intent(this,SideBarControl.class));
         	 finish();
         	 return true;
          case Common.KEY_SIDEBAR_APP:
