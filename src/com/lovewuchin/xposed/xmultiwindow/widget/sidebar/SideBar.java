@@ -81,8 +81,8 @@ public class SideBar extends StandOutWindow{
 				Display display = wm.getDefaultDisplay();
 				display.getMetrics(metrics);
 				if(metrics.heightPixels>metrics.widthPixels){
-				ActionItem  upitem=new ActionItem(1,getString(Common.POP_ADD_UPVIEW));
-				ActionItem  downiten=new ActionItem(2, getString(Common.POP_ADD_DOWNVIEW));
+				ActionItem  upitem=new ActionItem(1,getString(Common.STRING_POP_ADD_UPVIEW));
+				ActionItem  downiten=new ActionItem(2, getString(Common.STRING_POP_ADD_DOWNVIEW));
 				final QuickAction quickAction = new QuickAction(mContext, QuickAction.VERTICAL);
 				quickAction.addActionItem(upitem);
 				quickAction.addActionItem(downiten);
@@ -145,7 +145,7 @@ public class SideBar extends StandOutWindow{
 		Display display = wm.getDefaultDisplay();
 		display.getMetrics(metrics);
 		SharedPreferences mPrefs=getSharedPreferences(Common.PREFERENCE_MAIN, MODE_WORLD_READABLE);
-		int width=mPrefs.getInt(Common.PREFERENCE_WIDTH_KEY, 150);
+		int width=mPrefs.getInt(Common.PREFERENCE_WIDTH, 150);
 		if(metrics.heightPixels>metrics.widthPixels){
 		return new StandOutLayoutParams(id, width, metrics.heightPixels, 0, 0);
 		}else{
@@ -153,7 +153,7 @@ public class SideBar extends StandOutWindow{
 		}
 	}
 	public String getPersistentNotificationMessage(int id) {
-		return getString(Common.NOFIY_CLEAR);
+		return getString(Common.STRING_NOFIY_CLEAR);
 	}
 	public Intent getPersistentNotificationIntent(int id) {
 		return StandOutWindow.getCloseAllIntent(this, SideBar.class);
