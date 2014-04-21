@@ -29,18 +29,16 @@ public class MainPreference extends PreferenceActivity implements OnPreferenceCl
     	findPreference(Common.KEY_LUNCH_FLOAT).setOnPreferenceClickListener(this);
     	findPreference(Common.KEY_SIDEBAR_APP).setOnPreferenceClickListener(this);
     	mSideWidth=(SeekBarPreference)findPreference("sidebar_width");
-    	mSideWidth.setValue(mPrefs.getInt(Common.PREFERENCE_WIDTH, 150));
+    	mSideWidth.setValue(mPrefs.getInt(Common.PREFERENCE_WIDTH_KEY, 150));
     	mSideWidth.setOnPreferenceChangeListener(this);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	// TODO Auto-generated method stub
     	getMenuInflater().inflate(Common.MENU, menu);
 		return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	// TODO Auto-generated method stub
     	switch(item.getItemId()){
     	case R.id.action_instruction:{
     		new AlertDialog.Builder(this).setTitle(Common.ACTION_INSTRUC).setMessage(Common.ACTION_MESSAGE)
@@ -52,27 +50,30 @@ public class MainPreference extends PreferenceActivity implements OnPreferenceCl
     	}
     	return false;
     }
-      public boolean onPreferenceClick(Preference preference) {
-    	// TODO Auto-generated method stub
-    	  String key=preference.getKey();
-           if(key.equals(Common.KEY_LUNCH_FLOAT)){
-    		  startActivity(new Intent(this,SideBarControlPanel.class));
-    		  finish();
-    		  return true;
-    	  }else if(key.equals(Common.KEY_SIDEBAR_APP)){
-    		  startActivity(new Intent(this,SideBarApp.class));
-    		  return true;
-    	  }
-    	return false;
+    public boolean onPreferenceClick(Preference preference) {
+         Intent mIntent;
+         switch(preference.getKey()) {
+         case Common.KEY_LUNCH_FLOAT:
+        	 mIntent = new Intent(this, SideBarControlPanel.class);
+        	 startActivity(mIntent);
+        	 finish();
+        	 return true;
+         case Common.KEY_SIDEBAR_APP:
+        	 mIntent = new Intent(this, SideBarApp.class);
+        	 startActivity(mIntent);
+        	 return true;
+         default :
+        	 return false;
+         }
     }
 	@Override
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
-		// TODO Auto-generated method stub
-		String key=preference.getKey();
-		if(key.equals(Common.KEY_SIDEBAR_WIDTH)){
-			mPrefs.edit().putInt(Common.PREFERENCE_WIDTH, (Integer) newValue).commit();
+		switch(preference.getKey()) {
+		case Common.KEY_SIDEBAR_WIDTH:
+			mPrefs.edit().putInt(Common.PREFERENCE_WIDTH_KEY, (Integer) newValue).commit();
 			return true;
+		default:
+			return false;
 		}
-		return false;
 	}
 }

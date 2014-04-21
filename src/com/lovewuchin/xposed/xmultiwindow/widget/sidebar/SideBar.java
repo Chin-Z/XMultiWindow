@@ -145,7 +145,7 @@ public class SideBar extends StandOutWindow{
 		Display display = wm.getDefaultDisplay();
 		display.getMetrics(metrics);
 		SharedPreferences mPrefs=getSharedPreferences(Common.PREFERENCE_MAIN, MODE_WORLD_READABLE);
-		int width=mPrefs.getInt(Common.PREFERENCE_WIDTH, 150);
+		int width=mPrefs.getInt(Common.PREFERENCE_WIDTH_KEY, 150);
 		if(metrics.heightPixels>metrics.widthPixels){
 		return new StandOutLayoutParams(id, width, metrics.heightPixels, 0, 0);
 		}else{

@@ -11,7 +11,7 @@ public class Common {
 	public static final String LOG_TAG = "XMultiWindow(SDK: " + Build.VERSION.SDK_INT + ") - ";
 	public static final String PREFERENCE_APP="sidebar_app";
 	public static final String PREFERENCE_MAIN="main_preference";
-	public static final String PREFERENCE_WIDTH="sidebar_width";
+	public static final String PREFERENCE_WIDTH_KEY="sidebar_width";
 	public static final String REFRESH_APP_LAYOUT = THIS_PACKAGE_NAME + ".REFRESH_APP_LAYOUT";
 	public static final int LAYOUT_RECEIVER_TAG = android.R.id.background;
 //Broadcast
